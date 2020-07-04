@@ -19,7 +19,7 @@ commands:
     permission: pchat.command.setprefix
   setsuffix:
     description: "Allows you to set your PureChat suffix"
-    permission: pchat.command.setsuffix	
+    permission: pchat.command.setsuffix
 permissions:
   pchat:
     description: "PureChat by 64FF00! (Twitter: @64FF00)"
@@ -31,9 +31,9 @@ permissions:
             description: "Allows you to set default chat format of a PurePerms group"
           pchat.command.setnametag:
             description: "Allows you to set default nametag of a PurePerms group"
-          pchat.command.setprefix:		
+          pchat.command.setprefix:
             description: "Allows you to set your PureChat prefix"
-          pchat.command.setsuffix:		
-            description: "Allows you to set your PureChat suffix"			
+          pchat.command.setsuffix:
+            description: "Allows you to set your PureChat suffix"
       pchat.coloredMessages:
-        description: "Allows you to use colors in chat"		
+        description: "Allows you to use colors in chat"
