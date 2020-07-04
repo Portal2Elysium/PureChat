@@ -704,10 +704,12 @@ class PureChat extends PluginBase
         if($levelName === null)
         {
             $this->playerData->setNested($player->getName() . ".default.prefix", $prefix);
+            $this->playerData->save();
         }
         else
         {
             $this->playerData->setNested($player->getName() . "." . $levelName . "prefix", $prefix);
+            $this->playerData->save();
         }
 
         return true;
@@ -724,10 +726,12 @@ class PureChat extends PluginBase
         if($levelName === null)
         {
             $this->playerData->setNested($player->getName() . ".default.suffix", $suffix);
+            $this->playerData->save();
         }
         else
         {
             $this->playerData->setNested($player->getName() . "." . $levelName . "suffix", $suffix);
+            $this->playerData->save();
         }
 
         return true;
