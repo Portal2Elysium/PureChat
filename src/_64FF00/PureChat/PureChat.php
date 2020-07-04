@@ -620,7 +620,7 @@ class PureChat extends PluginBase
     {
         if($levelName === null)
         {
-            return $this->playerData->getNested($player->getName() . "." . "default-prefix", "");
+            return $this->playerData->getNested($player->getName() . ".default.prefix", "");
         }
         else
         {
@@ -637,7 +637,7 @@ class PureChat extends PluginBase
     {
         if($levelName === null)
         {
-            return $this->playerData->getNested($player->getName() . "." . "default-suffix", "");
+            return $this->playerData->getNested($player->getName() . ".default.suffix", "");
         }
         else
         {
@@ -703,7 +703,7 @@ class PureChat extends PluginBase
     {
         if($levelName === null)
         {
-            $this->playerData->setNested($player->getName() . "." . "default-prefix", $prefix);
+            $this->playerData->setNested($player->getName() . ".default.prefix", $prefix);
         }
         else
         {
@@ -723,7 +723,7 @@ class PureChat extends PluginBase
     {
         if($levelName === null)
         {
-            $this->playerData->setNested($player->getName() . "." . "default-suffix", $suffix);
+            $this->playerData->setNested($player->getName() . ".default.suffix", $suffix);
         }
         else
         {
