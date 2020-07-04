@@ -18,6 +18,8 @@ use pocketmine\plugin\PluginBase;
 
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
+use rankup\doesgroups\RankUpDoesGroups;
+use rankup\RankUp;
 
 class PureChat extends PluginBase
 {
@@ -41,6 +43,9 @@ class PureChat extends PluginBase
 
     /** @var FactionsInterface $factionsAPI */
     private $factionsAPI;
+
+    /** @var RankUpDoesGroups */
+    private $rankUpDoesGroups;
 
     /** @var \_64FF00\PurePerms\PurePerms $purePerms */
     private $purePerms;
@@ -66,6 +71,12 @@ class PureChat extends PluginBase
     public function onEnable()
     {
         $this->loadFactionsPlugin();
+
+        $plugin = $this->getServer()->getPluginManager()->getPlugin("RankUp");
+        if($plugin instanceof RankUp)
+        {
+            $this->rankUpDoesGroups = $plugin->getRankUpDoesGroups();
+        }
 
         $this->getServer()->getPluginManager()->registerEvents(new PCListener($this), $this);
     }
@@ -477,6 +488,15 @@ class PureChat extends PluginBase
 
         $string = str_replace("{prefix}", $this->getPrefix($player, $levelName), $string);
         $string = str_replace("{suffix}", $this->getSuffix($player, $levelName), $string);
+
+        if($this->rankUpDoesGroups instanceof RankUpDoesGroups)
+        {
+            $string = str_replace("{ru_rank}", (string) $this->rankUpDoesGroups->getPlayerGroup($player), $string);
+        }
+        else
+        {
+            $string = str_replace("{ru_rank}", '', $string);
+        }
 
         return $string;
     }
