@@ -41,6 +41,9 @@ class PureChat extends PluginBase
     /** @var Config $config */
     private $config;
 
+    /** @var Config $playerData */
+    private $playerData;
+
     /** @var FactionsInterface $factionsAPI */
     private $factionsAPI;
 
@@ -55,6 +58,7 @@ class PureChat extends PluginBase
         $this->saveDefaultConfig();
 
         $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+        $this->playerData = new Config($this->getDataFolder() . "playerData.yml", Config::YAML);
 
         if(!$this->config->get("version"))
         {
@@ -616,16 +620,11 @@ class PureChat extends PluginBase
     {
         if($levelName === null)
         {
-            return $this->purePerms->getUserDataMgr()->getNode($player, "prefix");
+            return $this->playerData->getNested($player->getName() . "." . "default-prefix", "");
         }
         else
         {
-            $worldData = $this->purePerms->getUserDataMgr()->getWorldData($player, $levelName);
-
-            if(!isset($worldData["prefix"]) || $worldData["prefix"] === null)
-                return "";
-
-            return $worldData["prefix"];
+            return $this->playerData->getNested($player->getName() . "." . $levelName . "prefix");
         }
     }
 
@@ -638,16 +637,11 @@ class PureChat extends PluginBase
     {
         if($levelName === null)
         {
-            return $this->purePerms->getUserDataMgr()->getNode($player, "suffix");
+            return $this->playerData->getNested($player->getName() . "." . "default-suffix", "");
         }
         else
         {
-            $worldData = $this->purePerms->getUserDataMgr()->getWorldData($player, $levelName);
-
-            if(!isset($worldData["suffix"]) || $worldData["suffix"] === null)
-                return "";
-
-            return $worldData["suffix"];
+            return $this->playerData->getNested($player->getName() . "." . $levelName . "suffix");
         }
     }
 
@@ -709,15 +703,11 @@ class PureChat extends PluginBase
     {
         if($levelName === null)
         {
-            $this->purePerms->getUserDataMgr()->setNode($player, "prefix", $prefix);
+            $this->playerData->setNested($player->getName() . "." . "default-prefix", $prefix);
         }
         else
         {
-            $worldData = $this->purePerms->getUserDataMgr()->getWorldData($player, $levelName);
-
-            $worldData["prefix"] = $prefix;
-
-            $this->purePerms->getUserDataMgr()->setWorldData($player, $levelName, $worldData);
+            $this->playerData->setNested($player->getName() . "." . $levelName . "prefix", $prefix);
         }
 
         return true;
@@ -733,15 +723,11 @@ class PureChat extends PluginBase
     {
         if($levelName === null)
         {
-            $this->purePerms->getUserDataMgr()->setNode($player, "suffix", $suffix);
+            $this->playerData->setNested($player->getName() . "." . "default-suffix", $suffix);
         }
         else
         {
-            $worldData = $this->purePerms->getUserDataMgr()->getWorldData($player, $levelName);
-
-            $worldData["suffix"] = $suffix;
-
-            $this->purePerms->getUserDataMgr()->setWorldData($player, $levelName, $worldData);
+            $this->playerData->setNested($player->getName() . "." . $levelName . "suffix", $suffix);
         }
 
         return true;
